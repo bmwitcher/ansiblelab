@@ -1,0 +1,17 @@
+---
+- name: ec2 launcher
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: launching ec2
+    ec2:
+      instance_type: t2.micro
+      region: us-east-1
+      key_name: ansible
+      image: ami-04d29b6f966df1537
+      wait: yes
+      group: default
+      count: 1
+      vpc_subnet_id: subnet-0735475b04f9be7ca
+      assign_public_ip: yes
+      user_data: "{{ lookup('file', 'user_data.sh') }}"
